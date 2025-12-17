@@ -1,5 +1,3 @@
-# Software Projects Portfolio
-
 ## About Me
 I am a Computer Information Systems graduate seeking OPT opportunities in the United States.  
 This portfolio contains academic and personal projects that demonstrate my problem-solving skills, technical knowledge, and ability to apply technology to real-world scenarios.
