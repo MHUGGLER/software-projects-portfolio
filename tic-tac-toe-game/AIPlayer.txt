@@ -1,0 +1,60 @@
+package model;
+
+public class AIPlayer {
+    private final char aiSymbol;
+    private final char humanSymbol;
+    private final Board board;
+
+    public AIPlayer(Board board, char aiSymbol, char humanSymbol) {
+        this.board = board;
+        this.aiSymbol = aiSymbol;
+        this.humanSymbol = humanSymbol;
+    }
+
+    public int[] getBestMove() {
+        int bestScore = Integer.MIN_VALUE;
+        int[] move = {-1, -1};
+
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                if (board.isCellEmpty(row, col)) {
+                    board.placeMark(row, col, aiSymbol);
+                    int score = minimax(false);
+                    board.removeMark(row, col);  // undo move
+
+                    if (score > bestScore) {
+                        bestScore = score;
+                        move[0] = row;
+                        move[1] = col;
+                    }
+                }
+            }
+        }
+        return move;
+    }
+
+    private int minimax(boolean isMaximizing) {
+        if (board.checkWin(aiSymbol)) return 1;
+        if (board.checkWin(humanSymbol)) return -1;
+        if (board.isFull()) return 0;
+
+        int bestScore = isMaximizing ? Integer.MIN_VALUE : Integer.MAX_VALUE;
+
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                if (board.isCellEmpty(row, col)) {
+                    board.placeMark(row, col, isMaximizing ? aiSymbol : humanSymbol);
+                    int score = minimax(!isMaximizing);
+                    board.removeMark(row, col);
+
+                    if (isMaximizing) {
+                        bestScore = Math.max(score, bestScore);
+                    } else {
+                        bestScore = Math.min(score, bestScore);
+                    }
+                }
+            }
+        }
+        return bestScore;
+    }
+}
