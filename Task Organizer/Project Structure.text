@@ -1,0 +1,8 @@
+task-organizer/
+├── src/
+│   ├── model/        ✔ data
+│   ├── service/      ✔ rules
+│   ├── ui/           ✔ intaction
+│   └── Main.java     ✔ entry
+├── data/             ✔ persistence
+└── README.md         ✔ documentation
